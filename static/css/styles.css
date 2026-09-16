@@ -103,14 +103,12 @@ body {
 
 .shape:first-child {
     background: linear-gradient(#36251b, #7c4f30);
-    ;
     left: -80px;
     top: -80px;
 }
 
 .shape:last-child {
     background: linear-gradient(to right, #daa022, #f09819);
-    ;
     right: -30px;
     bottom: -80px;
 }
@@ -145,6 +143,24 @@ form h3 {
     text-align: center;
 }
 
+label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+input {
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
 
 ::placeholder {
     color: #e5e5e5;
@@ -166,12 +182,17 @@ button:hover {
     box-shadow: 1px 1px 11px 8px #e7a83a;
 }
 
-
-
 .site-content {
     height: 70%;
 }
 
+.buttons {
+    display: flex;
+}
+
+.buttons button {
+    margin: 20px;
+}
 
 .thank-you {
     display: flex;
@@ -184,6 +205,6 @@ button:hover {
     display: none;
 }
 
-.selected-room{
+.selected-room {
     background-color: #cfcbca;
 }
