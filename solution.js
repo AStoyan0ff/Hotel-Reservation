@@ -20,7 +20,11 @@ function changeContent(className) {
     }
 }
 
-changeContent('search-result-form-content');
+changeContent('search-form-content');
+
+document
+    .querySelector('#search-form-button')
+    .addEventListener('click', searchFormData);
 
 document
     .querySelector('#search-back-btn')
@@ -38,20 +42,40 @@ document
     .querySelector('#new-reservation')
     .addEventListener('click', cleanData);
 
+function searchFormData(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget.closest('form');
+    const checkIn = form.querySelector('#check-in').value;
+    const checkOut = form.querySelector('#check-out').value;
+    const people = form.querySelector('#people').value;
+
+    const hasValidData =
+        checkIn !== '' &&
+        checkOut !== '' &&
+        people !== '' &&
+        new Date(checkIn) <= new Date(checkOut);
+
+    if (!hasValidData) {
+        return;
+    }
+
+    reservation.startDate = checkIn;
+    reservation.endDate = checkOut;
+    reservation.guestsCount = Number(people);
+
+    console.log(reservation);
+    changeContent('search-result-form-content');
+}
+
 function fillSearchForm(event) {
     event.preventDefault();
 
     changeContent('search-form-content');
 
-    const checkInInput = document.querySelector('#check-in');
-    const checkOutInput = document.querySelector('#check-out');
-    const peopleInput = document.querySelector('#people');
-
-    if (checkInInput && checkOutInput && peopleInput) {
-        checkInInput.value = reservation.startDate;
-        checkOutInput.value = reservation.endDate;
-        peopleInput.value = reservation.guestsCount;
-    }
+    document.querySelector('#check-in').value = reservation.startDate;
+    document.querySelector('#check-out').value = reservation.endDate;
+    document.querySelector('#people').value = reservation.guestsCount;
 }
 
 function selectRoomType(event) {
@@ -67,7 +91,7 @@ function findRoom(event) {
 
     const selectedRoom = document.querySelector('.selected-room h4');
 
-    if (!selectedRoom) {
+    if (selectedRoom === null) {
         return;
     }
 
