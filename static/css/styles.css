@@ -166,12 +166,26 @@ button:hover {
     box-shadow: 1px 1px 11px 8px #e7a83a;
 }
 
-
-
 .site-content {
     height: 70%;
 }
 
+.buttons {
+    display: flex;
+}
+
+.buttons button {
+    margin: 20px;
+}
+
+.confirm-reservation {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+}
 
 .thank-you {
     display: flex;
