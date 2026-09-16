@@ -39,6 +39,14 @@ document
     .addEventListener('click', findRoom);
 
 document
+    .querySelector('#guest-details-back-btn')
+    .addEventListener('click', fillRoomForm);
+
+document
+    .querySelector('#guest-details-next-btn')
+    .addEventListener('click', getPersonalData);
+
+document
     .querySelector('#new-reservation')
     .addEventListener('click', cleanData);
 
@@ -99,6 +107,57 @@ function findRoom(event) {
 
     console.log(reservation);
     changeContent('guest-details-form-content');
+}
+
+function fillRoomForm(event) {
+    event.preventDefault();
+    changeContent('search-result-form-content');
+}
+
+function getPersonalData(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget.closest('form');
+    const name = form.querySelector('#name').value.trim();
+    const phone = form.querySelector('#phone-number').value.trim();
+    const email = form.querySelector('#email').value.trim();
+
+    const hasValidData =
+        name !== '' &&
+        phone !== '' &&
+        email !== '';
+
+    if (!hasValidData) {
+        return;
+    }
+
+    reservation.name = name;
+    reservation.phone = phone;
+    reservation.email = email;
+
+    console.log(reservation);
+
+    changeContent('confirm-reservation-content');
+    fillConfirmReservationData(reservation);
+}
+
+function fillConfirmReservationData(customReservation) {
+    const reservationDetails = {
+        '#guest-name': `Name: ${customReservation.name}`,
+        '#guest-phone': `Phone Number: ${customReservation.phone}`,
+        '#guest-email': `Email: ${customReservation.email}`,
+        '#guest-room-type': `Room Type: ${customReservation.roomType}`,
+        '#guest-data-in': `Date-in: ${customReservation.startDate}`,
+        '#guest-data-out': `Date-out: ${customReservation.endDate}`
+    };
+
+    for (const [selector, text] of Object.entries(reservationDetails)) {
+        const element = document.querySelector(selector);
+
+        if (element !== null) {
+            element.textContent = text;
+        }
+    }
 }
 
 function cleanData(event) {
