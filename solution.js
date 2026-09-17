@@ -47,6 +47,14 @@ document
     .addEventListener('click', getPersonalData);
 
 document
+    .querySelector('#confirm-back-btn')
+    .addEventListener('click', getBackToPersonalData);
+
+document
+    .querySelector('#confirm-reservation')
+    .addEventListener('click', showThanksPage);
+
+document
     .querySelector('#new-reservation')
     .addEventListener('click', cleanData);
 
@@ -137,8 +145,8 @@ function getPersonalData(event) {
 
     console.log(reservation);
 
-    changeContent('confirm-reservation-content');
     fillConfirmReservationData(reservation);
+    changeContent('confirm-reservation-content');
 }
 
 function fillConfirmReservationData(customReservation) {
@@ -160,7 +168,40 @@ function fillConfirmReservationData(customReservation) {
     }
 }
 
+function getBackToPersonalData(event) {
+    event.preventDefault();
+    changeContent('guest-details-form-content');
+}
+
+function showThanksPage(event) {
+    event.preventDefault();
+    changeContent('thank-you-content');
+}
+
 function cleanData(event) {
     event.preventDefault();
+
+    Object.assign(reservation, {
+        startDate: null,
+        endDate: null,
+        guestsCount: 0,
+        roomType: null,
+        name: null,
+        phone: null,
+        email: null
+    });
+
+    document
+        .querySelectorAll('form')
+        .forEach(form => form.reset());
+
+    const rooms = document.querySelectorAll('.room-type');
+
+    rooms.forEach(room => room.classList.remove('selected-room'));
+
+    if (rooms.length > 0) {
+        rooms[0].classList.add('selected-room');
+    }
+
     changeContent('search-form-content');
 }
